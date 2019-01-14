@@ -1,6 +1,6 @@
 package com.jidouauto.mvvm.rxjava.transformer;
 
-import com.jidouauto.lib.rxhelper.*;
+import com.jidouauto.mvvm.rxjava.*;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.Single;
 

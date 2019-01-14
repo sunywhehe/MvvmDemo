@@ -5,7 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.telephony.SmsManager;
+import android.util.Log;
+import com.jidouauto.mvvm.util.io.FileUtils;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -13,6 +16,7 @@ import java.util.List;
  * @date 16/4/10.
  */
 public class CommonUtils {
+    private static final String TAG = "CommonUtils:";
 
     public static final String SCHEME_TEL = "tel:";
 
@@ -60,5 +64,17 @@ public class CommonUtils {
         } else {
             smsManager.sendTextMessage(phoneNumber, null, content, sentIntent, null);
         }
+    }
+
+
+    /**
+     * 获取 xlog 文件保存 路径
+     *
+     * @return
+     */
+    public static String getXlogFolderPath() {
+        File file = new File(FileUtils.createAppCachePath(), "LeosunLog");
+        Log.d(TAG, " getXlogFolderPath :" + file.getPath() + " isExist:" + file.exists());
+        return file.getPath();
     }
 }

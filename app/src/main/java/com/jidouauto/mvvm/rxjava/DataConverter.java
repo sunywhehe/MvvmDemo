@@ -1,6 +1,6 @@
 package com.jidouauto.mvvm.rxjava;
 
-import com.jidouauto.lib.rxhelper.transformer.Transformers;
+import com.jidouauto.mvvm.rxjava.transformer.Transformers;
 
 /**
  * @param <T> 业务数据模型

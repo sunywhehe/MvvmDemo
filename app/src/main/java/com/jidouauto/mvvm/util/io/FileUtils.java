@@ -2,6 +2,7 @@ package com.jidouauto.mvvm.util.io;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.os.Environment;
 import com.jidouauto.mvvm.util.AppUtils;
 
 import java.io.*;
@@ -17,11 +18,11 @@ public class FileUtils {
     private static final String TAG = FileUtils.class.getSimpleName();
 
     /**
-     * 创建根缓存目录
+     * 获取 app cache 目录
      *
      * @return
      */
-    public static String createRootPath() {
+    public static String createAppCachePath() {
         String cacheRootPath = "";
         if (StorageUtils.isSdCardAvailable()) {
             // /sdcard/Android/data/<application package>/cache
@@ -34,12 +35,29 @@ public class FileUtils {
     }
 
     /**
+     * 获取 文件根目录
+     *
+     * @return
+     */
+    public static String createRootPath() {
+        String cacheRootPath = "";
+        if (StorageUtils.isSdCardAvailable()) {
+            // /sdcard/Android/data
+            cacheRootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        } else {
+            // /data/data
+            cacheRootPath = AppUtils.getAppContext().getFilesDir().getPath();
+        }
+        return cacheRootPath;
+    }
+
+    /**
      * 创建文件夹
      *
      * @param dirPath
      * @return 创建失败返回""
      */
-    private static String createDir(String dirPath) {
+    public static String createDir(String dirPath) {
         try {
             File dir = new File(dirPath);
             if (!dir.exists()) {
@@ -58,7 +76,7 @@ public class FileUtils {
      * @return 创建失败, 返回""
      */
     public static String getImageCachePath() {
-        String path = createDir(createRootPath() + File.separator + "img" + File.separator);
+        String path = createDir(createAppCachePath() + File.separator + "img" + File.separator);
         return path;
     }
 
@@ -68,7 +86,7 @@ public class FileUtils {
      * @return 创建失败, 返回""
      */
     public static String getImageCropCachePath() {
-        String path = createDir(createRootPath() + File.separator + "imgCrop" + File.separator);
+        String path = createDir(createAppCachePath() + File.separator + "imgCrop" + File.separator);
         return path;
     }
 

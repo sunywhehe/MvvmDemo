@@ -13,11 +13,10 @@ import com.elvishew.xlog.printer.file.FilePrinter;
 import com.elvishew.xlog.printer.file.naming.DateFileNameGenerator;
 import com.jidouauto.mvvm.constants.HttpConstants;
 import com.jidouauto.mvvm.util.AppUtils;
-import com.jidouauto.mvvm.util.io.FileUtils;
+import com.jidouauto.mvvm.util.CommonUtils;
 import com.squareup.leakcanary.LeakCanary;
 import okhttp3.OkHttpClient;
-
-import java.io.File;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
  * @author leosun
@@ -37,6 +36,10 @@ public class App extends MultiDexApplication {
         init();
     }
 
+    /**
+     * application 所有初始化项
+     * 注意 ，初始化 顺序必须是 appContext -> logger -> rxhttp
+     */
     private void init() {
         AppUtils.init(this);
         initLogger();
@@ -61,7 +64,7 @@ public class App extends MultiDexApplication {
         // Printer that print the log to the file system
         Printer filePrinter = new FilePrinter
                 // Specify the path to save log file
-                .Builder(new File(FileUtils.createRootPath(), "xlog").getPath())
+                .Builder(CommonUtils.getXlogFolderPath())
                 // Default: ChangelessFileNameGenerator("log")
                 .fileNameGenerator(new DateFileNameGenerator())
                 // Default: FileSizeBackupStrategy(1024 * 1024)
@@ -75,6 +78,11 @@ public class App extends MultiDexApplication {
     }
 
     private void initRxHttp() {
+        HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor(message -> {
+            XLog.nst().d("OKHTTP:" + message);
+        });
+        logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
         OkHttpClient okHttpClient = new OkHttpConfig.Builder(this)
                 //全局的请求头信息
                 //.setHeaders(headerMaps)
@@ -85,7 +93,7 @@ public class App extends MultiDexApplication {
                 //全局持久话cookie,保存本地每次都会携带在header中（默认false）
                 //.setSaveCookie(true)
                 //可以添加自己的拦截器(比如使用自己熟悉三方的缓存库等等)
-                //.setAddInterceptor(null)
+                .setAddInterceptor(logInterceptor)
                 //全局ssl证书认证
                 //1、信任所有证书,不安全有风险（默认信任所有证书）
                 //.setSslSocketFactory()
@@ -100,7 +108,7 @@ public class App extends MultiDexApplication {
                 //全局超时配置
                 .setConnectTimeout(30)
                 //全局是否打开请求log日志
-                .setDebug(true).build();
+                .setDebug(false).build();
 
         RxHttpUtils.getInstance().init(this).config()
                 //配置全局baseUrl

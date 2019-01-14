@@ -1,7 +1,7 @@
 package com.jidouauto.mvvm.rxjava;
 
-import com.jidouauto.lib.rxhelper.transformer.LifecycleTransformer;
 import io.reactivex.Observable;
+import com.jidouauto.mvvm.rxjava.transformer.LifecycleTransformer;
 
 /**
  * @author eddie

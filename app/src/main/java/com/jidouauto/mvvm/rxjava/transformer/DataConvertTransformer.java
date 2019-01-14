@@ -1,6 +1,6 @@
 package com.jidouauto.mvvm.rxjava.transformer;
 
-import com.jidouauto.lib.rxhelper.DataConverter;
+import com.jidouauto.mvvm.rxjava.DataConverter;
 import io.reactivex.*;
 import org.reactivestreams.Publisher;
 

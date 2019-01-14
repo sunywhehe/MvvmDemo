@@ -1,7 +1,7 @@
 package com.jidouauto.mvvm.rxjava.transformer;
 
 import android.util.Log;
-import com.jidouauto.lib.rxhelper.RetryOnError;
+import com.jidouauto.mvvm.rxjava.RetryOnError;
 import io.reactivex.*;
 import io.reactivex.functions.Function;
 import org.reactivestreams.Publisher;

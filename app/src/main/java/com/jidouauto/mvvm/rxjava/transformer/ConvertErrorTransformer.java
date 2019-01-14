@@ -1,6 +1,6 @@
 package com.jidouauto.mvvm.rxjava.transformer;
 
-import com.jidouauto.lib.rxhelper.ErrorConverter;
+import com.jidouauto.mvvm.rxjava.ErrorConverter;
 import io.reactivex.*;
 import org.reactivestreams.Publisher;
 

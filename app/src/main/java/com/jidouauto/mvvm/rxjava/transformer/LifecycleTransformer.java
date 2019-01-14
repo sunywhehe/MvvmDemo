@@ -14,7 +14,7 @@
 
 package com.jidouauto.mvvm.rxjava.transformer;
 
-import com.jidouauto.lib.rxhelper.LifecycleSource;
+import com.jidouauto.mvvm.rxjava.LifecycleSource;
 import io.reactivex.*;
 import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
@@ -37,7 +37,7 @@ public final class LifecycleTransformer<T> implements ObservableTransformer<T, T
 
 
     public static <T, R> LifecycleTransformer<T> bindUntilEvent(final Observable<R> lifecycle,
-                                                             final R... events) {
+                                                                final R... events) {
         checkNotNull(lifecycle, "lifecycle == null");
         checkNotNull(events, "event == null");
         return bind(takeUntilEvent(lifecycle, events));

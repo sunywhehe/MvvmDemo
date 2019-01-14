@@ -1,7 +1,7 @@
 package com.jidouauto.mvvm.rxjava.transformer;
 
-import com.jidouauto.lib.rxhelper.NullableData;
-import com.jidouauto.lib.rxhelper.Validator;
+import com.jidouauto.mvvm.rxjava.NullableData;
+import com.jidouauto.mvvm.rxjava.Validator;
 import io.reactivex.*;
 import org.reactivestreams.Publisher;
 
