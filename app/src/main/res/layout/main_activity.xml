@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+
+        <variable
+                name="vm"
+                type="com.jidouauto.mvvm.viewmodel.MainActivityViewModel"/>
+    </data>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            tools:context=".ui.activity.MainActivity"
+            android:orientation="vertical">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+            <EditText
+                    android:id="@+id/add_searchkey_edittext"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"/>
+
+            <Button
+                    android:id="@+id/add_searchkey_button"
+                    android:layout_width="80dp"
+                    android:text="search"
+                    android:layout_height="match_parent"/>
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_searchkey_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:list_data="@{vm.searchKeyList}">
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+</layout>

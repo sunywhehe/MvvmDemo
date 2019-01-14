@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+>
+    <data>
+
+        <variable
+                name="item"
+                type="com.jidouauto.mvvm.data.entity.SearchKey"/>
+
+        <variable
+                name="presenter"
+                type="com.jidouauto.mvvm.ui.adapter.SearchListAdapter.SearchViewPresenter"/>
+    </data>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:fitsSystemWindows="true"
+            android:orientation="vertical">
+
+        <TextView
+                android:id="@+id/search_list_item_text"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:textColor="@{item.syncPending?@color/gray_99:@color/colorAccent}"
+                android:text="@{item.commentText}"
+                android:onClick="@{(view) -> presenter.addSearch(view, item)}"/>
+    </LinearLayout>
+</layout>
