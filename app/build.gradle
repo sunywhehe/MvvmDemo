@@ -27,7 +27,7 @@ android {
         multiDexEnabled true
         ndk {
             //设置支持的SO库架构
-            abiFilters "armeabi"
+            abiFilters "armeabi", "x86"
         }
     }
     buildTypes {
@@ -73,6 +73,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    testImplementation 'org.robolectric:robolectric:3.8'
 
     implementation 'com.android.support:multidex:1.0.3'
 

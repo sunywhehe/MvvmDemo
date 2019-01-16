@@ -1,8 +1,10 @@
 package com.jidouauto.mvvm.rxjava.transformer;
 
 import com.jidouauto.mvvm.rxjava.*;
+import io.reactivex.Observable;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.Single;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author eddie
@@ -166,5 +168,9 @@ public class Transformers {
      */
     public static <T> RetryWhenTransformer<T> retryWhenError(Class<? extends Throwable> errorType, final int retryCount, long delayMillisecond, Single<?> retryAfter) {
         return retryWhenError(throwable -> (throwable.getClass().isAssignableFrom(errorType)), retryCount, delayMillisecond, retryAfter);
+    }
+
+    public static <T> ObservableTransformer<T, T> defer() {
+        return upstream -> Observable.defer(() -> upstream).subscribeOn(Schedulers.io());
     }
 }

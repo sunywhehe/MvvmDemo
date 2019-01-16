@@ -1,9 +1,7 @@
 package com.jidouauto.mvvm.data.entity;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
-import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.*;
+import android.graphics.Bitmap;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -11,7 +9,7 @@ import java.io.Serializable;
 /**
  * Immutable POJO that represents a SearchKey
  */
-@Entity(tableName = "tb_search")
+@Entity(tableName = "tb_search", indices = {@Index("photo_id")})
 public class SearchKey implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
@@ -29,6 +27,12 @@ public class SearchKey implements Serializable {
 
     @ColumnInfo(name = "sync_pending")
     private boolean syncPending;
+
+    @Ignore
+    private Bitmap picture;
+
+    @Embedded(prefix = "embedded_")
+    private SearchKeyEmbedded searchKeyEmbedded;
 
     public long getId() {
         return id;
@@ -56,6 +60,14 @@ public class SearchKey implements Serializable {
 
     public boolean isSyncPending() {
         return syncPending;
+    }
+
+    public SearchKeyEmbedded getSearchKeyEmbedded() {
+        return searchKeyEmbedded;
+    }
+
+    public void setSearchKeyEmbedded(SearchKeyEmbedded searchKeyEmbedded) {
+        this.searchKeyEmbedded = searchKeyEmbedded;
     }
 
     @Ignore
