@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jidouauto.mvvm.BR;
 import com.jidouauto.mvvm.R;
+import com.jidouauto.mvvm.base.BaseMyListAdapter;
 import com.jidouauto.mvvm.data.entity.SearchKey;
 
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
  * @author leosun
  * Created by Leosun on 2019/1/11 15:44
  */
-public class SearchListAdapter extends BaseQuickAdapter<SearchKey, SearchListAdapter.SearchViewHolder> {
+public class SearchListAdapter extends BaseMyListAdapter<SearchKey, SearchListAdapter.SearchViewHolder> {
 
     private SearchViewPresenter mPresenter;
 

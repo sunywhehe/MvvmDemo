@@ -10,10 +10,9 @@ import java.security.spec.AlgorithmParameterSpec;
 /**
  * DES加解密
  *
- * @author yuyh.
- * @date 16/4/9.
+ * @author leosun.
  */
-public class DESEncrypt {
+public class DesEncrypt {
     public static final String ALGORITHM_DES = "DES/CBC/PKCS5Padding";
 
     public static String encode(String key, String data) {

@@ -12,67 +12,67 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- *
+ * @author leosun
  */
 @SuppressLint("ApplySharedPref")
-public final class SPUtils {
+public final class SpUtils {
 
-    private static final Map<String, SPUtils> SP_UTILS_MAP = new ConcurrentHashMap<>();
+    private static final Map<String, SpUtils> SP_UTILS_MAP = new ConcurrentHashMap<>();
     private SharedPreferences sp;
 
     /**
-     * Return the single {@link SPUtils} instance
+     * Return the single {@link SpUtils} instance
      *
-     * @return the single {@link SPUtils} instance
+     * @return the single {@link SpUtils} instance
      */
-    public static SPUtils getInstance() {
+    public static SpUtils getInstance() {
         return getInstance("", Context.MODE_PRIVATE);
     }
 
     /**
-     * Return the single {@link SPUtils} instance
+     * Return the single {@link SpUtils} instance
      *
      * @param mode Operating mode.
-     * @return the single {@link SPUtils} instance
+     * @return the single {@link SpUtils} instance
      */
-    public static SPUtils getInstance(final int mode) {
+    public static SpUtils getInstance(final int mode) {
         return getInstance("", mode);
     }
 
     /**
-     * Return the single {@link SPUtils} instance
+     * Return the single {@link SpUtils} instance
      *
      * @param spName The name of sp.
-     * @return the single {@link SPUtils} instance
+     * @return the single {@link SpUtils} instance
      */
-    public static SPUtils getInstance(String spName) {
+    public static SpUtils getInstance(String spName) {
         return getInstance(spName, Context.MODE_PRIVATE);
     }
 
     /**
-     * Return the single {@link SPUtils} instance
+     * Return the single {@link SpUtils} instance
      *
      * @param spName The name of sp.
      * @param mode   Operating mode.
-     * @return the single {@link SPUtils} instance
+     * @return the single {@link SpUtils} instance
      */
-    public static SPUtils getInstance(String spName, final int mode) {
+    public static SpUtils getInstance(String spName, final int mode) {
         if (isSpace(spName)) {
             spName = "spUtils";
         }
-        SPUtils spUtils = SP_UTILS_MAP.get(spName);
+        SpUtils spUtils = SP_UTILS_MAP.get(spName);
         if (spUtils == null) {
-            spUtils = new SPUtils(spName, mode);
+            spUtils = new SpUtils(spName, mode);
             SP_UTILS_MAP.put(spName, spUtils);
         }
         return spUtils;
     }
 
-    private SPUtils(final String spName) {
+    private SpUtils(final String spName) {
         sp = AppUtils.getAppContext().getSharedPreferences(spName, Context.MODE_PRIVATE);
     }
 
-    private SPUtils(final String spName, final int mode) {
+    private SpUtils(final String spName, final int mode) {
         sp = AppUtils.getAppContext().getSharedPreferences(spName, mode);
     }
 

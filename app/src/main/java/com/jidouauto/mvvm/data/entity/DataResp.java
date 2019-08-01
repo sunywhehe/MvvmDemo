@@ -4,7 +4,9 @@ package com.jidouauto.mvvm.data.entity;
 import com.jidouauto.mvvm.http.exception.BaseException;
 import com.jidouauto.mvvm.http.exception.DataException;
 import com.jidouauto.mvvm.rxjava.DataConverter;
-
+/**
+ * @author leosun
+ */
 public class DataResp<T> extends MsgResp implements DataConverter<T> {
 
 

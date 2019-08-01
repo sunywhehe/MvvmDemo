@@ -100,8 +100,8 @@ public class PackageUtils {
      */
     public static void uninstallApk(Context context, String packageName) {
         Intent intent = new Intent(Intent.ACTION_DELETE);
-        Uri packageURI = Uri.parse("package:" + packageName);
-        intent.setData(packageURI);
+        Uri packageUri = Uri.parse("package:" + packageName);
+        intent.setData(packageUri);
         context.startActivity(intent);
     }
 

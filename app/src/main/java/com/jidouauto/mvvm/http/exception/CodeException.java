@@ -1,6 +1,8 @@
 package com.jidouauto.mvvm.http.exception;
 
-
+/**
+ * @author leosun
+ */
 public class CodeException extends BaseException {
     public CodeException(int code) {
         super(code);

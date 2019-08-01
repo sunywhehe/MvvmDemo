@@ -2,13 +2,12 @@ package com.jidouauto.mvvm.data.repository;
 
 import com.elvishew.xlog.XLog;
 import com.jidouauto.mvvm.data.db.SearchDao;
-import com.jidouauto.mvvm.data.db.SearchDatabase;
+import com.jidouauto.mvvm.data.db.BaseSearchDatabase;
 import com.jidouauto.mvvm.data.entity.SearchKey;
 import com.jidouauto.mvvm.data.entity.SearchKeyUtils;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
-import io.reactivex.Single;
 
 import java.util.List;
 
@@ -35,16 +34,16 @@ public class LocalSearchDataSource {
     }
 
     private LocalSearchDataSource() {
-        searchDao = SearchDatabase.getInstance().searchDao();
+        searchDao = BaseSearchDatabase.getInstance().searchDao();
     }
 
 
     /**
      * Adds a SearchKey to a given photo
      */
-    public Observable<SearchKey> add(long photoId, String SearchKeyText) {
-        XLog.d(TAG + "creating SearchKey for photo id %s, SearchKey text %s", photoId, SearchKeyText);
-        SearchKey searchKey = new SearchKey(photoId, SearchKeyText);
+    public Observable<SearchKey> add(long photoId, String searchKeyText) {
+        XLog.d(TAG + "creating SearchKey for photo id %s, SearchKey text %s", photoId, searchKeyText);
+        SearchKey searchKey = new SearchKey(photoId, searchKeyText);
 
         return Observable.fromCallable(() -> {
             long rowId = searchDao.add(searchKey);
@@ -56,19 +55,19 @@ public class LocalSearchDataSource {
     /**
      * Updates a SearchKey
      */
-    public Completable update(SearchKey SearchKey) {
-        XLog.d(TAG + "updating SearchKey sync status for SearchKey id %s", SearchKey.getId());
+    public Completable update(SearchKey searchKey) {
+        XLog.d(TAG + "updating SearchKey sync status for SearchKey id %s", searchKey.getId());
 
-        return Completable.fromAction(() -> searchDao.update(SearchKey));
+        return Completable.fromAction(() -> searchDao.update(searchKey));
     }
 
     /**
      * Deletes a SearchKey
      */
-    public Completable delete(SearchKey SearchKey) {
-        XLog.d(TAG + "deleting SearchKey with id %s", SearchKey.getId());
+    public Completable delete(SearchKey searchKey) {
+        XLog.d(TAG + "deleting SearchKey with id %s", searchKey.getId());
 
-        return Completable.fromAction(() -> searchDao.delete(SearchKey));
+        return Completable.fromAction(() -> searchDao.delete(searchKey));
     }
 
     /**

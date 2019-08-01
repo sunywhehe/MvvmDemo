@@ -19,7 +19,7 @@ import java.security.spec.X509EncodedKeySpec;
  * @author yuyh.
  * @date 16/4/10.
  */
-public class RSAEncrypt {
+public class RsaEncrypt {
 
     public static final String KEY_ALGORTHM = "RSA";
     public static final String SIGNATURE_ALGORITHM = "MD5withRSA";
@@ -40,10 +40,10 @@ public class RSAEncrypt {
      */
     private RSAPublicKey publicKey;
 
-    public RSAEncrypt() {
+    public RsaEncrypt() {
     }
 
-    public RSAEncrypt(String publicKey) {
+    public RsaEncrypt(String publicKey) {
         try {
             loadPublicKey(publicKey);
         } catch (Exception e) {
@@ -172,7 +172,7 @@ public class RSAEncrypt {
     public String decrypt(String privateKey, byte[] cipherData) {
         String result = "";
         try {
-            if (privateKey_Str.equals("")) {
+            if ("".equals(privateKey_Str)) {
                 privateKey_Str = privateKey;
                 loadPrivateKey(privateKey);
             }

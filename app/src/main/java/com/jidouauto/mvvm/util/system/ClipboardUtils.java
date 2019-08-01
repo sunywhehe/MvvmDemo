@@ -14,31 +14,6 @@ import android.os.Build;
  */
 public class ClipboardUtils {
 
-    /***** API<11 *****/
-    /**
-     * 复制内容到剪贴板
-     *
-     * @param context
-     * @param text
-     */
-    public static void copyToClipboardSupport(Context context, String text) {
-        android.text.ClipboardManager clipboard = (android.text.ClipboardManager) context
-                .getSystemService(Context.CLIPBOARD_SERVICE);
-        clipboard.setText(text);
-    }
-
-    /**
-     * 获取剪贴板内容
-     *
-     * @param context
-     */
-    public static void getLatestTextSupport(Context context) {
-        android.text.ClipboardManager clipboard = (android.text.ClipboardManager) context
-                .getSystemService(Context.CLIPBOARD_SERVICE);
-        clipboard.getText();
-    }
-
-
     /***** API>=11 *****/
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static void copyToClipboard(Context context, String text) {

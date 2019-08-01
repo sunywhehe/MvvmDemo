@@ -11,10 +11,14 @@ import com.jidouauto.mvvm.util.AppUtils;
 public class DimenUtils {
 
     public enum EScreenDensity {
-        XXHDPI,    //超高分辨率    1080×1920
-        XHDPI,    //超高分辨率    720×1280
-        HDPI,    //高分辨率         480×800
-        MDPI,    //中分辨率         320×480
+        //超高分辨率    1080×1920
+        XXHDPI,
+        //超高分辨率    720×1280
+        XHDPI,
+        //高分辨率         480×800
+        HDPI,
+        //中分辨率         320×480
+        MDPI,
     }
 
     public static EScreenDensity getDisply(Context context) {
@@ -23,11 +27,15 @@ public class DimenUtils {
         DisplayMetrics dm = context.getApplicationContext().getResources().getDisplayMetrics();
         int densityDpi = dm.densityDpi;
 
-        if (densityDpi <= 160) {
+        int mdpi = 160;
+        int hdpi = 240;
+        int xhdpi = 400;
+
+        if (densityDpi <= mdpi) {
             eScreenDensity = EScreenDensity.MDPI;
-        } else if (densityDpi <= 240) {
+        } else if (densityDpi <= hdpi) {
             eScreenDensity = EScreenDensity.HDPI;
-        } else if (densityDpi < 400) {
+        } else if (densityDpi < xhdpi) {
             eScreenDensity = EScreenDensity.XHDPI;
         } else {
             eScreenDensity = EScreenDensity.XXHDPI;

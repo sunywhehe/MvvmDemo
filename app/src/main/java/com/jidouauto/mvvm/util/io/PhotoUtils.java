@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.widget.Toast;
-import com.jidouauto.mvvm.util.system.PackageUtils;
 
 import java.io.File;
 
@@ -29,6 +28,15 @@ public class PhotoUtils {
         public static final int PICK_PHOTO_FROM_GALLERY = 1;
         public static final int CROP_PHOTO_BY_SYSTEM = 2;
     }
+
+    /**
+     * 相机权限
+     */
+    public static String PERMISSION_CAMERA = "android.permission.CAMERA";
+    /**
+     * 读写权限
+     */
+    public static String WRITE_EXTERNAL_STORAGE = "android.permission.WRITE_EXTERNAL_STORAGE";
 
     private static Uri tempPhotoUri = null;
     private static Uri tempPhotoCropUri = null;
@@ -80,6 +88,8 @@ public class PhotoUtils {
             case RequestCode.CROP_PHOTO_BY_SYSTEM:
                 setOnCropPhotoResultListener(resultCode, data, l);
                 break;
+            default:
+                break;
         }
     }
 
@@ -90,7 +100,6 @@ public class PhotoUtils {
      * @param fragment 若为null则表示在Activity中启动，否则在Fragment中启动F
      */
     public static void takePhotoBySystem(Context context, Fragment fragment) {
-        checkPermission();
         try {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             File photoFile = new File(FileUtils.getImageCachePath(), "imgTemp");
@@ -124,7 +133,6 @@ public class PhotoUtils {
      * @param fragment
      */
     public static void pickPhotoFormGallery(Context context, Fragment fragment) {
-        checkPermission();
         Intent intent = new Intent(Intent.ACTION_PICK, null);
         intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
         startActivityForResult(context, intent, RequestCode.PICK_PHOTO_FROM_GALLERY, fragment);
@@ -151,10 +159,9 @@ public class PhotoUtils {
             String[] proj = {MediaStore.Images.Media.DATA};
             Cursor cursor = mContentResolver.query(data.getData(), proj, null,
                     null, null);
-            int column_index = cursor
-                    .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
             cursor.moveToFirst();
-            String path = cursor.getString(column_index);
+            String path = cursor.getString(columnIndex);
             l.onPhotoResult(path, photo);
         } catch (Exception e) {
             e.printStackTrace();
@@ -171,7 +178,6 @@ public class PhotoUtils {
      * @param height    裁剪高度
      */
     public static void cropPhotoBySystem(Context context, Fragment fragment, String photoPath, int width, int height) {
-        checkPermission();
         try {
             File cropFile = new File(FileUtils.getImageCropCachePath(), "imgCropTemp");
             Intent intent = new Intent("com.android.camera.action.CROP");
@@ -206,18 +212,6 @@ public class PhotoUtils {
         }
         Bitmap photo = data.getParcelableExtra("data");
         l.onPhotoResult(tempPhotoCropUri.getPath(), photo);
-    }
-
-    /**
-     * 检查所需权限
-     */
-    private static void checkPermission() {
-        if (!PackageUtils.checkPermission("android.permission.CAMERA")) {
-            throw new RuntimeException("请在Manifest里面添加android.permission.CAMERA权限");
-        }
-        if (!PackageUtils.checkPermission("android.permission.WRITE_EXTERNAL_STORAGE")) {
-            throw new RuntimeException("请在Manifest里面添加android.permission.WRITE_EXTERNAL_STORAGE权限");
-        }
     }
 
 }

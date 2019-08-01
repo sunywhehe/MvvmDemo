@@ -81,12 +81,16 @@ public class ArrayUtils {
                 } else {
                     typee = t > intArray[j];
                 }
-                if (!typee) break;
+                if (!typee) {
+                    break;
+                }
                 intArray[j + 1] = intArray[j];
                 y = j;
             }
 
-            if (y > -1) intArray[y] = t;
+            if (y > -1) {
+                intArray[y] = t;
+            }
         }
     }
 
@@ -236,13 +240,15 @@ public class ArrayUtils {
 
     /**
      * 将数组颠倒
+     *
      * @param objects
      * @return
      */
     public static Object[] upsideDown(Object[] objects) {
         int length = objects.length;
         Object tem;
-        for (int w = 0; w < length / 2; w++) {
+        int lengthPart = 2;
+        for (int w = 0; w < length / lengthPart; w++) {
             tem = objects[w];
             objects[w] = objects[length - 1 - w];
             objects[length - 1 - w] = tem;
@@ -255,6 +261,7 @@ public class ArrayUtils {
 
     /**
      * Integer数组转换成int数组
+     *
      * @param integers
      * @return
      */

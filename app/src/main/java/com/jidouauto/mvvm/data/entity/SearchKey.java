@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 /**
- * Immutable POJO that represents a SearchKey
+ * @author leosun
  */
 @Entity(tableName = "tb_search", indices = {@Index("photo_id")})
 public class SearchKey implements Serializable {

@@ -6,7 +6,6 @@ import com.jidouauto.mvvm.base.BaseViewModel;
 import com.jidouauto.mvvm.data.entity.SearchKey;
 import com.jidouauto.mvvm.data.repository.SearchRepository;
 import com.jidouauto.mvvm.rxjava.transformer.Transformers;
-
 import java.util.List;
 
 /**
@@ -30,7 +29,7 @@ public class MainActivityViewModel extends BaseViewModel {
 
     public void addSearchKey(String searchText) {
         getDisposables().add(SearchRepository.getInstance().addComment(searchText)
-                .compose(Transformers.applyIOUI())
+                .compose(Transformers.applyIoUi())
                 .subscribe(searchKey -> {
                             XLog.d(TAG + "add comment success");
                             updateSearchKey(searchKey);
@@ -40,14 +39,14 @@ public class MainActivityViewModel extends BaseViewModel {
 
     private void updateSearchKey(SearchKey searchKey) {
         getDisposables().add(SearchRepository.getInstance().updateSysPending(1, false)
-                .compose(Transformers.applyIOUI())
+                .compose(Transformers.applyIoUi())
                 .subscribe(() -> XLog.d(TAG + "update comment success"),
                         t -> XLog.e(TAG + "update comment error")));
     }
 
     private void loadSearchKeyList() {
         getDisposables().add(SearchRepository.getInstance().getSearchKeys(1)
-                .compose(Transformers.applyIOUI())
+                .compose(Transformers.applyIoUi())
                 .subscribe(mSearchKeyList::setValue,
                         t -> XLog.e(TAG + "get comments error")));
     }

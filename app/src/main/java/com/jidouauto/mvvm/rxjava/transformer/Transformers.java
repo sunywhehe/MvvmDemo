@@ -20,8 +20,8 @@ public class Transformers {
      * @param <T> the type parameter
      * @return observable transformer
      */
-    public static <T> IOUITransformer<T> applyIOUI() {
-        return new IOUITransformer<>();
+    public static <T> IoUiTransformer<T> applyIoUi() {
+        return new IoUiTransformer<>();
     }
 
     /**

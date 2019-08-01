@@ -8,12 +8,7 @@ import java.lang.reflect.Type;
 
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2018/04/05
- *     desc  : utils about gson
- * </pre>
+ * @author leosun
  */
 public final class GsonUtils {
 

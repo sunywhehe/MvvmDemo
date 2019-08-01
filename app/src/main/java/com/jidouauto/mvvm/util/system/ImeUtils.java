@@ -17,7 +17,7 @@ import java.lang.reflect.Field;
  * @date 16/4/9.
  */
 @TargetApi(Build.VERSION_CODES.CUPCAKE)
-public class IMEUtils {
+public class ImeUtils {
 
     /**
      * 切换键盘显示/隐藏状态
@@ -78,44 +78,5 @@ public class IMEUtils {
     public static boolean isActive(Context context) {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         return imm.isActive();
-    }
-
-    /**
-     * Fix the leaks of soft input.
-     * <p>Call the function in {@link Activity#onDestroy()}.</p>
-     *
-     * @param context The context.
-     */
-    public static void fixSoftInputLeaks(final Context context) {
-        if (context == null) {
-            return;
-        }
-        InputMethodManager imm =
-                (InputMethodManager) AppUtils.getAppContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        String[] strArr = new String[]{"mCurRootView", "mServedView", "mNextServedView", "mLastSrvView"};
-        for (int i = 0; i < 4; i++) {
-            try {
-                //noinspection ConstantConditions
-                Field declaredField = imm.getClass().getDeclaredField(strArr[i]);
-                if (declaredField == null) {
-                    continue;
-                }
-                if (!declaredField.isAccessible()) {
-                    declaredField.setAccessible(true);
-                }
-                Object obj = declaredField.get(imm);
-                if (!(obj instanceof View)) {
-                    continue;
-                }
-                View view = (View) obj;
-                if (view.getContext() == context) {
-                    declaredField.set(imm, null);
-                } else {
-                    return;
-                }
-            } catch (Throwable th) {
-                th.printStackTrace();
-            }
-        }
     }
 }

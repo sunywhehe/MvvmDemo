@@ -28,7 +28,7 @@ public class StringUtils {
      * @param str
      * @return
      */
-    public static String TranEncodeTOGB(String str) {
+    public static String tranEncodeTogb(String str) {
         try {
             String strEncode = StringUtils.getEncoding(str);
             String temp = new String(str.getBytes(strEncode), "GBK");
@@ -45,7 +45,7 @@ public class StringUtils {
      * @param c 输入字符
      * @return 如果是gb2312返回真，否则返回假
      */
-    public static boolean isGB2312(char c) {
+    public static boolean isGb2312(char c) {
         Character ch = Character.valueOf(c);
         String sCh = ch.toString();
         try {
@@ -227,7 +227,7 @@ public class StringUtils {
      * @param input
      * @return
      */
-    public static String ToDBC(String input) {
+    public static String toDbc(String input) {
         char[] c = input.toCharArray();
         for (int i = 0; i < c.length; i++) {
             if (c[i] == 12288) {

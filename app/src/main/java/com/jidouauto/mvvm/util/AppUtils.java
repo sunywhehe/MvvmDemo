@@ -35,6 +35,9 @@ import android.content.res.Resources;
 import android.os.Handler;
 import android.os.Looper;
 
+/**
+ * @author leosun
+ */
 public class AppUtils {
 
     private static Context mContext;
@@ -59,15 +62,15 @@ public class AppUtils {
         return mContext.getResources();
     }
 
-    public static boolean isUIThread() {
+    public static boolean isUiThread() {
         return Thread.currentThread() == mUiThread;
     }
 
-    public static void runOnUI(Runnable r) {
+    public static void runOnUi(Runnable r) {
         sHandler.post(r);
     }
 
-    public static void runOnUIDelayed(Runnable r, long delayMills) {
+    public static void runOnUiDelayed(Runnable r, long delayMills) {
         sHandler.postDelayed(r, delayMills);
     }
 

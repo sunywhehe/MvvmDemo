@@ -7,6 +7,6 @@ import android.arch.persistence.room.ColumnInfo;
  * Created by Leosun on 2019/1/15 10:46
  */
 public class SearchKeyEmbedded {
-    @ColumnInfo(name = "embedded_id")
-    public int embedded_id;
+    @ColumnInfo(name = "embeddedId")
+    public int embeddedId;
 }

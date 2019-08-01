@@ -1,7 +1,8 @@
 package com.jidouauto.mvvm.data.entity;
 
-import org.w3c.dom.Comment;
-
+/**
+ * @author leosun
+ */
 public class SearchKeyUtils {
     public static SearchKey clone(SearchKey from, boolean syncPending) {
         return new SearchKey(from.getId(), from.getPhotoId(), from.getCommentText(),

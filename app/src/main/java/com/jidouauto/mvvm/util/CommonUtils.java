@@ -47,14 +47,15 @@ public class CommonUtils {
      * @param phoneNumber 接收号码
      * @param content     短信内容
      */
-    private void toSendSMS(Context context, String phoneNumber, String content) {
+    private void toSendSms(Context context, String phoneNumber, String content) {
         if (context == null) {
             throw new IllegalArgumentException("context can not be null.");
         }
         PendingIntent sentIntent = PendingIntent.getBroadcast(context, 0, new Intent(), 0);
         SmsManager smsManager = SmsManager.getDefault();
 
-        if (content.length() >= 70) {
+        int maxLength = 70;
+        if (content.length() >= maxLength) {
             //短信字数大于70，自动分条
             List<String> ms = smsManager.divideMessage(content);
             for (String str : ms) {

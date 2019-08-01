@@ -9,13 +9,18 @@ import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
 /**
- * @author yuyh.
+ * @author leosun.
  * @date 16/4/11.
  */
 public class ZipUtils {
-
-    private static final int BUFF_SIZE = 1024 * 1024; // 1M Byte
-    private static boolean stopZipFlag; // 是否停止压缩
+    /**
+     * 1M Byte
+     */
+    private static final int BUFF_SIZE = 1024 * 1024;
+    /**
+     * 是否停止压缩
+     */
+    private static boolean stopZipFlag;
 
     /**
      * 压缩进度监听
@@ -107,7 +112,7 @@ public class ZipUtils {
                     desFile.createNewFile();
                 }
                 OutputStream out = new FileOutputStream(desFile);
-                byte buffer[] = new byte[BUFF_SIZE];
+                byte[] buffer = new byte[BUFF_SIZE];
                 int realLength;
                 while ((realLength = in.read(buffer)) > 0) {
                     out.write(buffer, 0, realLength);
@@ -158,7 +163,7 @@ public class ZipUtils {
                         desFile.createNewFile();
                     }
                     OutputStream out = new FileOutputStream(desFile);
-                    byte buffer[] = new byte[BUFF_SIZE];
+                    byte[] buffer = new byte[BUFF_SIZE];
                     int realLength;
                     while ((realLength = in.read(buffer)) > 0) {
                         out.write(buffer, 0, realLength);
@@ -260,7 +265,6 @@ public class ZipUtils {
             if (resFile.isDirectory()) {
                 File[] fileList = resFile.listFiles();
                 int length = fileList.length;
-                // Log.e("zipprogress", (int)((1 / (float) (length+1))*100)+"%");
                 zipListener.zipProgress((int) ((1 / (float) (length + 1)) * 100));
                 for (int i = 0; i < length; i++) {
                     if (stopZipFlag) {
@@ -268,11 +272,10 @@ public class ZipUtils {
                     }
                     File file = fileList[i];
                     zipFile(file, zipout, rootpath, zipListener);
-                    // Log.e("zipprogress", (int)(((i+2) / (float) (length+1))*100)+"%");
                     zipListener.zipProgress((int) (((i + 2) / (float) (length + 1)) * 100));
                 }
             } else {
-                byte buffer[] = new byte[BUFF_SIZE];
+                byte[] buffer = new byte[BUFF_SIZE];
                 BufferedInputStream in = new BufferedInputStream(new FileInputStream(resFile),
                         BUFF_SIZE);
                 zipout.putNextEntry(new ZipEntry(rootpath));

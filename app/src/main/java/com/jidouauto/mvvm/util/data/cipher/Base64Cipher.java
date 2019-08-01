@@ -6,13 +6,13 @@ import com.jidouauto.mvvm.util.data.safe.Base64;
  * @author yuyh.
  * @date 16/4/9.
  */
-public class Base64Cipher extends Cipher {
-    private Cipher cipher;
+public class Base64Cipher extends BaseCipher {
+    private BaseCipher cipher;
 
     public Base64Cipher() {
     }
 
-    public Base64Cipher(Cipher cipher) {
+    public Base64Cipher(BaseCipher cipher) {
         this.cipher = cipher;
     }
 

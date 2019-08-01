@@ -121,23 +121,27 @@ public class PatternUtils {
     }
 
     /**
-     * 格式化手机号码 134*******7790
+     * 格式化手机号码 134****7790
      *
-     * @param phoneNo
+     * @param phoneNo phoneNo
+     * @param start   开始几位数
+     * @param end     结束几位数
+     *                中间的数 用*号代替
      * @return
      */
-    public static String formatPhoneStart3End4(String phoneNo) {
+    public static String formatPhoneStart3End4(String phoneNo, int start, int end) {
         if (null == phoneNo) {
             return "";
         }
 
         int length = phoneNo.length();
         StringBuilder builder = new StringBuilder();
-        builder.append(phoneNo.substring(0, 3));
-        for (int i = 0; i < (length - 7); i++) {
+        builder.append(phoneNo.substring(0, start));
+
+        for (int i = 0; i < (length - (start + end)); i++) {
             builder.append("*");
         }
-        builder.append(phoneNo.substring(length - 4, length));
+        builder.append(phoneNo.substring(length - end, length));
         return builder.toString();
     }
 

@@ -4,7 +4,9 @@ package com.jidouauto.mvvm.data.entity;
 import com.jidouauto.mvvm.http.exception.BaseException;
 import com.jidouauto.mvvm.http.exception.IdentityException;
 import com.jidouauto.mvvm.rxjava.Validator;
-
+/**
+ * @author leosun
+ */
 public class CodeResp implements Validator<BaseException> {
     public static final int SUCCEED = 200;
     public static final int TOKEN_EXPIRE = 999;

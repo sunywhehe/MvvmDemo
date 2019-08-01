@@ -6,6 +6,9 @@ import io.reactivex.Flowable;
 
 import java.util.List;
 
+/**
+ * @author leosun
+ */
 @Dao
 public interface SearchDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)

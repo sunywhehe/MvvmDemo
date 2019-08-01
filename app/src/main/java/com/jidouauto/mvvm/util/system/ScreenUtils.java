@@ -114,8 +114,9 @@ public class ScreenUtils {
      * @param mContext
      */
     public static void saveScreenBrightness(int paramInt, Context mContext) {
-        if (paramInt <= 5) {
-            paramInt = 5;
+        int minBrightness = 5;
+        if (paramInt <= minBrightness) {
+            paramInt = minBrightness;
         }
         try {
             float f = paramInt / 100.0F * 255;
@@ -132,8 +133,9 @@ public class ScreenUtils {
      * @param mActivity
      */
     public static void setScreenBrightness(int paramInt, Activity mActivity) {
-        if (paramInt <= 5) {
-            paramInt = 5;
+        int minBrightness = 5;
+        if (paramInt <= minBrightness) {
+            paramInt = minBrightness;
         }
         Window localWindow = mActivity.getWindow();
         WindowManager.LayoutParams localLayoutParams = localWindow.getAttributes();

@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+
 import com.jidouauto.mvvm.R;
 import com.jidouauto.mvvm.base.BaseActivity;
 import com.jidouauto.mvvm.databinding.MainActivityBinding;
@@ -40,5 +41,20 @@ public class MainActivity extends BaseActivity<MainActivityBinding> {
             mViewModel.addSearchKey(dataBinding.addSearchkeyEdittext.getText().toString());
             dataBinding.addSearchkeyEdittext.setText("");
         });
+    }
+
+    @Override
+    protected void initIntentValue() {
+
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void initData() {
+
     }
 }

@@ -9,6 +9,7 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import com.jidouauto.mvvm.util.AppUtils;
@@ -36,9 +37,21 @@ public class NetworkUtils {
     public static int CURRENT_NETWORK_STATE = -1;
 
     public enum NetType {
+        /**
+         * 无网络连接
+         */
         None(1, "无网络连接"),
+        /**
+         * 蜂窝移动网络
+         */
         Mobile(2, "蜂窝移动网络"),
+        /**
+         * Wifi网络
+         */
         Wifi(4, "Wifi网络"),
+        /**
+         * 未知网络
+         */
         Other(8, "未知网络");
 
         NetType(int value, String desc) {
@@ -51,10 +64,25 @@ public class NetworkUtils {
     }
 
     public enum NetWorkType {
+        /**
+         * 未知网络
+         */
         UnKnown(-1, "未知网络"),
+        /**
+         * Wifi网络
+         */
         Wifi(1, "Wifi网络"),
+        /**
+         * 2G网络
+         */
         Net2G(2, "2G网络"),
+        /**
+         * 3G网络
+         */
         Net3G(3, "3G网络"),
+        /**
+         * 4G网络
+         */
         Net4G(4, "4G网络");
 
         NetWorkType(int value, String desc) {
@@ -219,7 +247,8 @@ public class NetworkUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return true;// 反射失败，默认开启
+        // 反射失败，默认开启
+        return true;
     }
 
     /**
@@ -254,7 +283,7 @@ public class NetworkUtils {
      * @return {@link ConnectivityManager#TYPE_WIFI}, {@link ConnectivityManager#TYPE_MOBILE},
      * {@link ConnectivityManager#TYPE_ETHERNET}...
      */
-    public static int getConnectedTypeINT(Context context) {
+    public static int getConnectedTypeInt(Context context) {
         NetworkInfo net = getConnectivityManager(context).getActiveNetworkInfo();
         if (net != null) {
             return net.getType();
@@ -284,7 +313,7 @@ public class NetworkUtils {
      * @return {@link  NetWorkType}
      */
     public static NetWorkType getNetworkType(Context context) {
-        int type = getConnectedTypeINT(context);
+        int type = getConnectedTypeInt(context);
         switch (type) {
             case ConnectivityManager.TYPE_WIFI:
                 return NetWorkType.Wifi;
@@ -328,8 +357,10 @@ public class NetworkUtils {
      */
     public static final boolean isGpsEnabled() {
         LocationManager locationManager = (LocationManager) AppUtils.getAppContext().getSystemService(Context.LOCATION_SERVICE);
-        boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER); // GPS
-        boolean network = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER); // WLAN或移动网络(3G/2G)
+        // GPS
+        boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        // WLAN或移动网络(3G/2G)
+        boolean network = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         if (gps || network) {
             Log.i("demo", "GPS Ensable");
             return true;
@@ -340,13 +371,13 @@ public class NetworkUtils {
     /**
      * 强制帮用户打开GPS
      */
-    public static final void openGPS() {
-        Intent GPSIntent = new Intent();
-        GPSIntent.setClassName("com.android.settings", "com.android.settings.widget.SettingsAppWidgetProvider");
-        GPSIntent.addCategory("android.intent.category.ALTERNATIVE");
-        GPSIntent.setData(Uri.parse("custom:3"));
+    public static final void openGps() {
+        Intent gpsIntent = new Intent();
+        gpsIntent.setClassName("com.android.settings", "com.android.settings.widget.SettingsAppWidgetProvider");
+        gpsIntent.addCategory("android.intent.category.ALTERNATIVE");
+        gpsIntent.setData(Uri.parse("custom:3"));
         try {
-            PendingIntent.getBroadcast(AppUtils.getAppContext(), 0, GPSIntent, 0).send();
+            PendingIntent.getBroadcast(AppUtils.getAppContext(), 0, gpsIntent, 0).send();
         } catch (PendingIntent.CanceledException e) {
             e.printStackTrace();
         }
@@ -358,7 +389,7 @@ public class NetworkUtils {
     public static void openSetting(Activity activity) {
         Intent intent = null;
         //判断手机系统的版本  即API大于10 就是3.0或以上版本
-        if (android.os.Build.VERSION.SDK_INT > 10) {
+        if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1) {
             intent = new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS);
         } else {
             intent = new Intent();

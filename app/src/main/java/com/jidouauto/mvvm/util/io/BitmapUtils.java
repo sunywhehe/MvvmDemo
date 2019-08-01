@@ -1,15 +1,14 @@
 package com.jidouauto.mvvm.util.io;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.*;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
-import android.util.DisplayMetrics;
 import android.view.View;
 import com.jidouauto.mvvm.util.StringUtils;
 import com.jidouauto.mvvm.util.data.safe.Base64;
@@ -90,8 +89,8 @@ public class BitmapUtils {
      * @param bitmap
      * @return
      */
-    public static Drawable bitmapToDrawable(Bitmap bitmap) {
-        return bitmap == null ? null : new BitmapDrawable(bitmap);
+    public static Drawable bitmapToDrawable(Resources resources, Bitmap bitmap) {
+        return bitmap == null ? null : new BitmapDrawable(resources, bitmap);
     }
 
     /**
@@ -114,21 +113,6 @@ public class BitmapUtils {
         }
         view.draw(canvas);
         return returnedBitmap;
-    }
-
-    /**
-     * 屏幕截图
-     *
-     * @param activity
-     * @return
-     */
-    public static Bitmap viewToBitmap(Activity activity) {
-        DisplayMetrics dm = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
-        View view = activity.getWindow().getDecorView();
-        view.layout(0, 0, dm.widthPixels, dm.heightPixels);
-        view.setDrawingCacheEnabled(true);
-        return Bitmap.createBitmap(view.getDrawingCache());
     }
 
     /**
@@ -176,7 +160,6 @@ public class BitmapUtils {
         final Rect rect = new Rect(0, 0, width, height);
         paint.setAntiAlias(true);
         canvas.drawARGB(0, 0, 0, 0);
-        //paint.setColor(0xff424242);
         paint.setColor(Color.TRANSPARENT);
         canvas.drawCircle(width / 2, height / 2, width / 2, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
@@ -285,14 +268,14 @@ public class BitmapUtils {
     }
 
 
-    public static Intent buildImageGetIntent(Uri saveTo, int outputX, int outputY, boolean returnData) {
-        return buildImageGetIntent(saveTo, 1, 1, outputX, outputY, returnData);
+    public static Intent buildImageGetIntent(Uri saveTo, int outputx, int outputy, boolean returnData) {
+        return buildImageGetIntent(saveTo, 1, 1, outputx, outputy, returnData);
     }
 
-    public static Intent buildImageGetIntent(Uri saveTo, int aspectX, int aspectY,
-                                             int outputX, int outputY, boolean returnData) {
+    public static Intent buildImageGetIntent(Uri saveTo, int aspectx, int aspecty,
+                                             int outputx, int outputy, boolean returnData) {
         Intent intent = new Intent();
-        if (Build.VERSION.SDK_INT < 19) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             intent.setAction(Intent.ACTION_GET_CONTENT);
         } else {
             intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
@@ -300,30 +283,30 @@ public class BitmapUtils {
         }
         intent.setType("image/*");
         intent.putExtra("output", saveTo);
-        intent.putExtra("aspectX", aspectX);
-        intent.putExtra("aspectY", aspectY);
-        intent.putExtra("outputX", outputX);
-        intent.putExtra("outputY", outputY);
+        intent.putExtra("aspectX", aspectx);
+        intent.putExtra("aspectY", aspecty);
+        intent.putExtra("outputx", outputx);
+        intent.putExtra("outputy", outputy);
         intent.putExtra("scale", true);
         intent.putExtra("return-data", returnData);
         intent.putExtra("outputFormat", Bitmap.CompressFormat.PNG.toString());
         return intent;
     }
 
-    public static Intent buildImageCropIntent(Uri uriFrom, Uri uriTo, int outputX, int outputY, boolean returnData) {
-        return buildImageCropIntent(uriFrom, uriTo, 1, 1, outputX, outputY, returnData);
+    public static Intent buildImageCropIntent(Uri uriFrom, Uri uriTo, int outputx, int outputy, boolean returnData) {
+        return buildImageCropIntent(uriFrom, uriTo, 1, 1, outputx, outputy, returnData);
     }
 
-    public static Intent buildImageCropIntent(Uri uriFrom, Uri uriTo, int aspectX, int aspectY,
-                                              int outputX, int outputY, boolean returnData) {
+    public static Intent buildImageCropIntent(Uri uriFrom, Uri uriTo, int aspectx, int aspecty,
+                                              int outputx, int outputy, boolean returnData) {
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uriFrom, "image/*");
         intent.putExtra("crop", "true");
         intent.putExtra("output", uriTo);
-        intent.putExtra("aspectX", aspectX);
-        intent.putExtra("aspectY", aspectY);
-        intent.putExtra("outputX", outputX);
-        intent.putExtra("outputY", outputY);
+        intent.putExtra("aspectX", aspectx);
+        intent.putExtra("aspectY", aspecty);
+        intent.putExtra("outputX", outputx);
+        intent.putExtra("outputY", outputy);
         intent.putExtra("scale", true);
         intent.putExtra("return-data", returnData);
         intent.putExtra("outputFormat", Bitmap.CompressFormat.PNG.toString());
@@ -341,9 +324,9 @@ public class BitmapUtils {
         int w = options.outWidth;
         int inSampleSize = 0;
         if (h > reqHeight || w > reqWidth) {
-            float ratioW = (float) w / reqWidth;
-            float ratioH = (float) h / reqHeight;
-            inSampleSize = (int) Math.min(ratioH, ratioW);
+            float ratiow = (float) w / reqWidth;
+            float ratioh = (float) h / reqHeight;
+            inSampleSize = (int) Math.min(ratioh, ratiow);
         }
         inSampleSize = Math.max(1, inSampleSize);
         return inSampleSize;

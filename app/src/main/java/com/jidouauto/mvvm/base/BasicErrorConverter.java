@@ -13,6 +13,9 @@ import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
+/**
+ * @author leosun
+ */
 public class BasicErrorConverter implements ErrorConverter<BaseException> {
 
     public static final ErrorConverter INSTANCE = new BasicErrorConverter();

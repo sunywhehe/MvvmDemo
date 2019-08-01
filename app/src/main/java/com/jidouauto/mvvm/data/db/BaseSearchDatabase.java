@@ -8,15 +8,18 @@ import com.jidouauto.mvvm.constants.DbConstants;
 import com.jidouauto.mvvm.data.entity.SearchKey;
 import com.jidouauto.mvvm.util.AppUtils;
 
+/**
+ * @author leosun
+ */
 @Database(entities = {SearchKey.class}, version = 1, exportSchema = false)
 @TypeConverters(DbValueConverter.class)
-public abstract class SearchDatabase extends RoomDatabase {
-    private static SearchDatabase instance;
+public abstract class BaseSearchDatabase extends RoomDatabase {
+    private static BaseSearchDatabase instance;
 
-    public static synchronized SearchDatabase getInstance() {
+    public static synchronized BaseSearchDatabase getInstance() {
         if (instance == null) {
             instance = Room
-                    .databaseBuilder(AppUtils.getAppContext().getApplicationContext(), SearchDatabase.class, DbConstants.SEARCH_DB_NAME)
+                    .databaseBuilder(AppUtils.getAppContext().getApplicationContext(), BaseSearchDatabase.class, DbConstants.SEARCH_DB_NAME)
                     .build();
         }
         return instance;

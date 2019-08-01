@@ -10,10 +10,10 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * @author yuyh.
+ * @author leosun.
  * @date 16/4/10.
  */
-public class JSONUtils {
+public class JsonUtils {
 
     private static boolean isPrintException = true;
 
@@ -210,7 +210,7 @@ public class JSONUtils {
      * @param defaultValue
      * @return
      */
-    public static JSONObject getJSONObject(JSONObject jsonObject, String key, JSONObject defaultValue) {
+    public static JSONObject getJsonObject(JSONObject jsonObject, String key, JSONObject defaultValue) {
         if (jsonObject == null || StringUtils.isEmpty(key)) {
             return defaultValue;
         }
@@ -225,14 +225,14 @@ public class JSONUtils {
         }
     }
 
-    public static JSONObject getJSONObject(String jsonData, String key, JSONObject defaultValue) {
+    public static JSONObject getJsonObject(String jsonData, String key, JSONObject defaultValue) {
         if (StringUtils.isEmpty(jsonData)) {
             return defaultValue;
         }
 
         try {
             JSONObject jsonObject = new JSONObject(jsonData);
-            return getJSONObject(jsonObject, key, defaultValue);
+            return getJsonObject(jsonObject, key, defaultValue);
         } catch (JSONException e) {
             if (isPrintException) {
                 e.printStackTrace();
@@ -250,7 +250,7 @@ public class JSONUtils {
      * @param defaultValue
      * @return
      */
-    public static JSONArray getJSONArray(JSONObject jsonObject, String key, JSONArray defaultValue) {
+    public static JSONArray getJsonArray(JSONObject jsonObject, String key, JSONArray defaultValue) {
         if (jsonObject == null || StringUtils.isEmpty(key)) {
             return defaultValue;
         }
@@ -265,14 +265,14 @@ public class JSONUtils {
         }
     }
 
-    public static JSONArray getJSONArray(String jsonData, String key, JSONArray defaultValue) {
+    public static JSONArray getJsonArray(String jsonData, String key, JSONArray defaultValue) {
         if (StringUtils.isEmpty(jsonData)) {
             return defaultValue;
         }
 
         try {
             JSONObject jsonObject = new JSONObject(jsonData);
-            return getJSONArray(jsonObject, key, defaultValue);
+            return getJsonArray(jsonObject, key, defaultValue);
         } catch (JSONException e) {
             if (isPrintException) {
                 e.printStackTrace();
@@ -329,7 +329,7 @@ public class JSONUtils {
      * @return
      */
     public static Map<String, String> getMap(JSONObject jsonObject, String key) {
-        return JSONUtils.parseKeyAndValueToMap(JSONUtils.getString(jsonObject, key, null));
+        return JsonUtils.parseKeyAndValueToMap(JsonUtils.getString(jsonObject, key, null));
     }
 
     /**

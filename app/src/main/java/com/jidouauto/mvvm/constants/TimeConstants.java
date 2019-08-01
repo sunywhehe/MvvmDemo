@@ -6,12 +6,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2017/03/13
- *     desc  : constants of time
- * </pre>
+ * @author leosun
  */
 public final class TimeConstants {
 

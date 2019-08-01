@@ -164,9 +164,12 @@ public class FileUtils {
         try {
             fi = new FileInputStream(src);
             fo = new FileOutputStream(desc);
-            FileChannel in = fi.getChannel();//得到对应的文件通道
-            FileChannel out = fo.getChannel();//得到对应的文件通道
-            in.transferTo(0, in.size(), out);//连接两个通道，并且从in通道读取，然后写入out通道
+            //得到对应的文件通道
+            FileChannel in = fi.getChannel();
+            //得到对应的文件通道
+            FileChannel out = fo.getChannel();
+            //连接两个通道，并且从in通道读取，然后写入out通道
+            in.transferTo(0, in.size(), out);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -192,11 +195,15 @@ public class FileUtils {
     public static String formatFileSizeToString(long fileLen) {
         DecimalFormat df = new DecimalFormat("#.00");
         String fileSizeString = "";
-        if (fileLen < 1024) {
+        int bLength = 1024;
+        int kbLength = 1048576;
+        int mbLength = 1073741824;
+
+        if (fileLen < bLength) {
             fileSizeString = df.format((double) fileLen) + "B";
-        } else if (fileLen < 1048576) {
+        } else if (fileLen < kbLength) {
             fileSizeString = df.format((double) fileLen / 1024) + "K";
-        } else if (fileLen < 1073741824) {
+        } else if (fileLen < mbLength) {
             fileSizeString = df.format((double) fileLen / 1048576) + "M";
         } else {
             fileSizeString = df.format((double) fileLen / 1073741824) + "G";

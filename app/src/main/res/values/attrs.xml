@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SwipePanel">
+        <attr name="leftSwipeColor" format="color"/>
+        <attr name="topSwipeColor" format="color"/>
+        <attr name="rightSwipeColor" format="color"/>
+        <attr name="bottomSwipeColor" format="color"/>
+        <attr name="leftEdgeSize" format="dimension"/>
+        <attr name="topEdgeSize" format="dimension"/>
+        <attr name="rightEdgeSize" format="dimension"/>
+        <attr name="bottomEdgeSize" format="dimension"/>
+        <attr name="leftDrawable" format="reference"/>
+        <attr name="topDrawable" format="reference"/>
+        <attr name="rightDrawable" format="reference"/>
+        <attr name="bottomDrawable" format="reference"/>
+        <attr name="isLeftCenter" format="boolean"/>
+        <attr name="isTopCenter" format="boolean"/>
+        <attr name="isRightCenter" format="boolean"/>
+        <attr name="isBottomCenter" format="boolean"/>
+        <attr name="isLeftEnabled" format="boolean"/>
+        <attr name="isTopEnabled" format="boolean"/>
+        <attr name="isRightEnabled" format="boolean"/>
+        <attr name="isBottomEnabled" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="GradientProgressbar">
+        <!--进度起始色-->
+        <attr name="progressStartColor" format="color"/>
+        <!--进度结束色-->
+        <attr name="progressEndColor" format="color"/>
+        <!--背景起始色-->
+        <attr name="bgStartColor" format="color"/>
+        <!--背景中间色-->
+        <attr name="bgMidColor" format="color"/>
+        <!--背景结束色-->
+        <attr name="bgEndColor" format="color"/>
+        <!--进度值 介于0-100-->
+        <attr name="progress" format="integer"/>
+        <!--进度宽度-->
+        <attr name="progressWidth" format="dimension"/>
+        <!--起始角度-->
+        <attr name="startAngle" format="integer"/>
+        <!--扫过的角度-->
+        <attr name="sweepAngle" format="integer"/>
+        <!--是否显示动画-->
+        <attr name="showAnim" format="boolean"/>
+    </declare-styleable>
+</resources>

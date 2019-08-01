@@ -1,7 +1,7 @@
 package com.jidouauto.mvvm.http.exception;
 
 /**
- * created by di at 2018/10/15
+ * @author leosun
  */
 public class MsgException extends CodeException {
     public MsgException(int code) {

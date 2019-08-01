@@ -2,7 +2,6 @@ package com.jidouauto.mvvm.util;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
-import android.content.CursorLoader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -10,18 +9,14 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 
 import java.io.File;
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2018/04/20
- *     desc  : URI 相关
- * </pre>
+ * @author leosun
  */
 public final class UriUtils {
 
@@ -113,9 +108,7 @@ public final class UriUtils {
         return getFileFromUri(uri, null, null);
     }
 
-    private static File getFileFromUri(@NonNull final Uri uri,
-                                       final String selection,
-                                       final String[] selectionArgs) {
+    private static File getFileFromUri(@NonNull final Uri uri, final String selection, final String[] selectionArgs) {
         CursorLoader cl = new CursorLoader(AppUtils.getAppContext());
         cl.setUri(uri);
         cl.setProjection(new String[]{"_data"});

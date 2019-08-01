@@ -6,14 +6,8 @@ import com.jidouauto.mvvm.util.AppUtils;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2018/05/07
- *     desc  : utils about resource
- * </pre>
+ * @author leosun
  */
 public final class ResourceUtils {
 
@@ -39,7 +33,7 @@ public final class ResourceUtils {
                     res &= copyFileFromAssets(assetsFilePath + "/" + asset, destFilePath + "/" + asset);
                 }
             } else {
-                res = writeFileFromIS(
+                res = writeFileFromIs(
                         destFilePath,
                         AppUtils.getAppContext().getAssets().open(assetsFilePath),
                         false
@@ -129,7 +123,7 @@ public final class ResourceUtils {
      * @return {@code true}: success<br>{@code false}: fail
      */
     public static boolean copyFileFromRaw(@RawRes final int resId, final String destFilePath) {
-        return writeFileFromIS(
+        return writeFileFromIs(
                 destFilePath,
                 AppUtils.getAppContext().getResources().openRawResource(resId),
                 false
@@ -197,13 +191,13 @@ public final class ResourceUtils {
     // other utils methods
     ///////////////////////////////////////////////////////////////////////////
 
-    private static boolean writeFileFromIS(final String filePath,
+    private static boolean writeFileFromIs(final String filePath,
                                            final InputStream is,
                                            final boolean append) {
-        return writeFileFromIS(getFileByPath(filePath), is, append);
+        return writeFileFromIs(getFileByPath(filePath), is, append);
     }
 
-    private static boolean writeFileFromIS(final File file,
+    private static boolean writeFileFromIs(final File file,
                                            final InputStream is,
                                            final boolean append) {
         if (!createOrExistsFile(file) || is == null) {
@@ -212,7 +206,7 @@ public final class ResourceUtils {
         OutputStream os = null;
         try {
             os = new BufferedOutputStream(new FileOutputStream(file, append));
-            byte data[] = new byte[BUFFER_SIZE];
+            byte []data = new byte[BUFFER_SIZE];
             int len;
             while ((len = is.read(data, 0, BUFFER_SIZE)) != -1) {
                 os.write(data, 0, len);

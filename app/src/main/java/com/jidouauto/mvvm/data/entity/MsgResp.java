@@ -5,7 +5,9 @@ import com.jidouauto.mvvm.http.exception.BaseException;
 import com.jidouauto.mvvm.http.exception.DataException;
 import com.jidouauto.mvvm.http.exception.MsgException;
 import com.jidouauto.mvvm.util.StringUtils;
-
+/**
+ * @author leosun
+ */
 public class MsgResp extends CodeResp {
     private String message;
 

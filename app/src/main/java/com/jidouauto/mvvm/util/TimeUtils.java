@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * 日期，时间类
+ * @author leosun
  */
 public final class TimeUtils {
 
@@ -598,10 +598,11 @@ public final class TimeUtils {
     public static String getFriendlyTimeSpanByNow(final long millis) {
         long now = System.currentTimeMillis();
         long span = now - millis;
-        if (span < 0)
+        if (span < 0) {
             // U can read http://www.apihome.cn/api/java/Formatter.html to understand it.
             return String.format("%tc", millis);
-        if (span < 1000) {
+        }
+        if (span < TimeConstants.SEC) {
             return "刚刚";
         } else if (span < TimeConstants.MIN) {
             return String.format(Locale.getDefault(), "%d秒前", span / TimeConstants.SEC);
@@ -1160,8 +1161,8 @@ public final class TimeUtils {
      * @param time The formatted time string.
      * @return the day of week in US
      */
-    public static String getUSWeek(final String time) {
-        return getUSWeek(string2Date(time, getDefaultFormat()));
+    public static String getUsWeek(final String time) {
+        return getUsWeek(string2Date(time, getDefaultFormat()));
     }
 
     /**
@@ -1171,8 +1172,8 @@ public final class TimeUtils {
      * @param format The format.
      * @return the day of week in US
      */
-    public static String getUSWeek(final String time, @NonNull final DateFormat format) {
-        return getUSWeek(string2Date(time, format));
+    public static String getUsWeek(final String time, @NonNull final DateFormat format) {
+        return getUsWeek(string2Date(time, format));
     }
 
     /**
@@ -1181,7 +1182,7 @@ public final class TimeUtils {
      * @param date The date.
      * @return the day of week in US
      */
-    public static String getUSWeek(final Date date) {
+    public static String getUsWeek(final Date date) {
         return new SimpleDateFormat("EEEE", Locale.US).format(date);
     }
 
@@ -1191,8 +1192,8 @@ public final class TimeUtils {
      * @param millis The milliseconds.
      * @return the day of week in US
      */
-    public static String getUSWeek(final long millis) {
-        return getUSWeek(new Date(millis));
+    public static String getUsWeek(final long millis) {
+        return getUsWeek(new Date(millis));
     }
 
     /**

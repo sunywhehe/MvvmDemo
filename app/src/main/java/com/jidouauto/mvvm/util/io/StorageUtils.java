@@ -39,7 +39,7 @@ public class StorageUtils {
      *
      * @return
      */
-    public static String getNormalSDCardPath() {
+    public static String getNormalSdCardPath() {
         return Environment.getExternalStorageDirectory().getPath();
     }
 
@@ -48,13 +48,15 @@ public class StorageUtils {
      *
      * @return
      */
-    public static String getSDCardPath() {
+    public static String getSdCardPath() {
         String cmd = "cat /proc/mounts";
         String sdcard = null;
-        Runtime run = Runtime.getRuntime();// 返回与当前 Java 应用程序相关的运行时对象
+        // 返回与当前 Java 应用程序相关的运行时对象
+        Runtime run = Runtime.getRuntime();
         BufferedReader bufferedReader = null;
         try {
-            Process p = run.exec(cmd);// 启动另一个进程来执行命令
+            // 启动另一个进程来执行命令
+            Process p = run.exec(cmd);
             bufferedReader = new BufferedReader(new InputStreamReader(new BufferedInputStream(p.getInputStream())));
             String lineStr;
             while ((lineStr = bufferedReader.readLine()) != null) {
@@ -90,7 +92,7 @@ public class StorageUtils {
      *
      * @return
      */
-    public static ArrayList<String> getSDCardPathEx() {
+    public static ArrayList<String> getSdCardPathEx() {
         ArrayList<String> list = new ArrayList<String>();
         try {
             Runtime runtime = Runtime.getRuntime();
@@ -108,12 +110,12 @@ public class StorageUtils {
                 }
 
                 if (line.contains("fat")) {
-                    String columns[] = line.split(" ");
+                    String[] columns = line.split(" ");
                     if (columns.length > 1) {
                         list.add("*" + columns[1]);
                     }
                 } else if (line.contains("fuse")) {
-                    String columns[] = line.split(" ");
+                    String[] columns = line.split(" ");
                     if (columns.length > 1) {
                         list.add(columns[1]);
                     }
@@ -151,8 +153,8 @@ public class StorageUtils {
      * @return
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
-    public static SDCardInfo getSDCardInfo() {
-        SDCardInfo sd = new SDCardInfo();
+    public static SdCardInfo getSdCardInfo() {
+        SdCardInfo sd = new SdCardInfo();
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state)) {
             sd.isExist = true;
@@ -175,7 +177,7 @@ public class StorageUtils {
         return sd;
     }
 
-    public static class SDCardInfo {
+    public static class SdCardInfo {
         public boolean isExist;
         public long totalBlocks;
         public long freeBlocks;
@@ -189,7 +191,7 @@ public class StorageUtils {
 
         @Override
         public String toString() {
-            return "SDCardInfo{" +
+            return "SdCardInfo{" +
                     "isExist=" + isExist +
                     ", totalBlocks=" + totalBlocks +
                     ", freeBlocks=" + freeBlocks +

@@ -51,7 +51,7 @@ public class Base64 {
     //  shared code
     //  --------------------------------------------------------
 
-    static abstract class Coder {
+    static abstract class BaseCoder {
         public byte[] output;
         public int op;
 
@@ -152,12 +152,12 @@ public class Base64 {
         return temp;
     }
 
-    static class Decoder extends Coder {
+    static class Decoder extends BaseCoder {
         /**
          * Lookup table for turning bytes into their position in the
          * Base64 alphabet.
          */
-        private static final int DECODE[] = {
+        private static final int[] DECODE = {
                 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
                 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
                 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 62, -1, -1, -1, 63,
@@ -180,7 +180,7 @@ public class Base64 {
          * Decode lookup table for the "web safe" variant (RFC 3548
          * sec. 4) where - and _ replace + and /.
          */
-        private static final int DECODE_WEBSAFE[] = {
+        private static final int[] DECODE_WEBSAFE = {
                 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
                 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
                 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 62, -1, -1,
@@ -251,11 +251,6 @@ public class Base64 {
             int p = offset;
             len += offset;
 
-            // Using local variables makes the decoder about 12%
-            // faster than if we manipulate the member variables in
-            // the loop.  (Even alphabet makes a measurable
-            // difference, which is somewhat surprising to me since
-            // the member variable is final.)
             int state = this.state;
             int value = this.value;
             int op = 0;
@@ -263,20 +258,6 @@ public class Base64 {
             final int[] alphabet = this.alphabet;
 
             while (p < len) {
-                // Try the fast path:  we're starting a new tuple and the
-                // next four bytes of the input stream are all data
-                // bytes.  This corresponds to going through states
-                // 0-1-2-3-0.  We expect to use this method for most of
-                // the data.
-                //
-                // If any of the next four bytes of input are non-data
-                // (whitespace, etc.), value will end up negative.  (All
-                // the non-data values in decode are small negative
-                // numbers, so shifting any of them up and or'ing them
-                // together will result in a value with its top bit set.)
-                //
-                // You can remove this whole block and the output should
-                // be the same, just slower.
                 if (state == 0) {
                     while (p + 4 <= len &&
                             (value = ((alphabet[input[p] & 0xff] << 18) |
@@ -293,11 +274,6 @@ public class Base64 {
                         break;
                     }
                 }
-
-                // The fast path isn't available -- either we've read a
-                // partial tuple, or the next four input bytes aren't all
-                // data, or whatever.  Fall back to the slower state
-                // machine implementation.
 
                 int d = alphabet[input[p++] & 0xff];
 
@@ -374,6 +350,8 @@ public class Base64 {
                             return false;
                         }
                         break;
+                    default:
+                        break;
                 }
             }
 
@@ -416,6 +394,8 @@ public class Base64 {
                 case 5:
                     // Read all the padding '='s we expected and no more.
                     // Fine.
+                    break;
+                default:
                     break;
             }
 
@@ -497,41 +477,43 @@ public class Base64 {
         Encoder encoder = new Encoder(flags, null);
 
         // Compute the exact length of the array we will produce.
-        int output_len = len / 3 * 4;
+        int outputLen = len / 3 * 4;
 
         // Account for the tail of the data and the padding bytes, if any.
         if (encoder.do_padding) {
             if (len % 3 > 0) {
-                output_len += 4;
+                outputLen += 4;
             }
         } else {
             switch (len % 3) {
                 case 0:
                     break;
                 case 1:
-                    output_len += 2;
+                    outputLen += 2;
                     break;
                 case 2:
-                    output_len += 3;
+                    outputLen += 3;
+                    break;
+                default:
                     break;
             }
         }
 
         // Account for the newlines, if any.
         if (encoder.do_newline && len > 0) {
-            output_len += (((len - 1) / (3 * Encoder.LINE_GROUPS)) + 1) *
+            outputLen += (((len - 1) / (3 * Encoder.LINE_GROUPS)) + 1) *
                     (encoder.do_cr ? 2 : 1);
         }
 
-        encoder.output = new byte[output_len];
+        encoder.output = new byte[outputLen];
         encoder.process(input, offset, len, true);
 
-        assert encoder.op == output_len;
+        assert encoder.op == outputLen;
 
         return encoder.output;
     }
 
-    /* package */ static class Encoder extends Coder {
+    /* package */ static class Encoder extends BaseCoder {
         /**
          * Emit a new line every this many output tuples.  Corresponds to
          * a 76-character line length (the maximum allowable according to
@@ -543,7 +525,7 @@ public class Base64 {
          * Lookup table for turning Base64 alphabet positions (6 bits)
          * into output bytes.
          */
-        private static final byte ENCODE[] = {
+        private static final byte[] ENCODE = {
                 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
                 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f',
                 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
@@ -554,7 +536,7 @@ public class Base64 {
          * Lookup table for turning Base64 alphabet positions (6 bits)
          * into output bytes.
          */
-        private static final byte ENCODE_WEBSAFE[] = {
+        private static final byte[] ENCODE_WEBSAFE = {
                 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
                 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f',
                 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
@@ -634,6 +616,8 @@ public class Base64 {
                                 (input[p++] & 0xff);
                         tailLen = 0;
                     }
+                    break;
+                default:
                     break;
             }
 

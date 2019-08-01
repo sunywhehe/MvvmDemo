@@ -3,12 +3,7 @@ package com.jidouauto.mvvm.util;
 import static java.lang.Math.PI;
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2018/03/21
- *     desc  : 坐标相关工具类
- * </pre>
+ * @author leosun
  */
 public final class CoordinateUtils {
 
@@ -28,9 +23,9 @@ public final class CoordinateUtils {
         double y = lat - 0.006;
         double z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * X_PI);
         double theta = Math.atan2(y, x) - 0.000003 * Math.cos(x * X_PI);
-        double gg_lng = z * Math.cos(theta);
-        double gg_lat = z * Math.sin(theta);
-        return new double[]{gg_lng, gg_lat};
+        double ggLng = z * Math.cos(theta);
+        double ggLat = z * Math.sin(theta);
+        return new double[]{ggLng, ggLat};
     }
 
     /**
@@ -43,9 +38,9 @@ public final class CoordinateUtils {
     public static double[] gcj02ToBd09(double lng, double lat) {
         double z = Math.sqrt(lng * lng + lat * lat) + 0.00002 * Math.sin(lat * X_PI);
         double theta = Math.atan2(lat, lng) + 0.000003 * Math.cos(lng * X_PI);
-        double bd_lng = z * Math.cos(theta) + 0.0065;
-        double bd_lat = z * Math.sin(theta) + 0.006;
-        return new double[]{bd_lng, bd_lat};
+        double bdLng = z * Math.cos(theta) + 0.0065;
+        double bdLat = z * Math.sin(theta) + 0.006;
+        return new double[]{bdLng, bdLat};
     }
 
     /**
@@ -55,7 +50,7 @@ public final class CoordinateUtils {
      * @param lat GCJ02 坐标纬度
      * @return WGS84 坐标：[经度，纬度]
      */
-    public static double[] gcj02ToWGS84(double lng, double lat) {
+    public static double[] gcj02ToWgs84(double lng, double lat) {
         if (outOfChina(lng, lat)) {
             return new double[]{lng, lat};
         }
@@ -103,9 +98,9 @@ public final class CoordinateUtils {
      * @param lat BD09 坐标纬度
      * @return WGS84 坐标：[经度，纬度]
      */
-    public static double[] bd09ToWGS84(double lng, double lat) {
+    public static double[] bd09ToWgs84(double lng, double lat) {
         double[] gcj = bd09ToGcj02(lng, lat);
-        return gcj02ToWGS84(gcj[0], gcj[1]);
+        return gcj02ToWgs84(gcj[0], gcj[1]);
     }
 
 
