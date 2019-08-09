@@ -342,8 +342,8 @@ public class SwipePanel extends FrameLayout {
             mPath[direction].moveTo(curPathX, curPathY);
 
             quad(edge, pivot - halfSize, direction);
-            quad(edge + progresses[direction] * unit * mark, pivot - halfSize + 5 * unit, direction);// 1, 5
-            quad(edge + progresses[direction] * 10 * unit * mark, pivot, direction);// 10, 16
+            quad(edge + progresses[direction] * unit * mark, pivot - halfSize + 5 * unit, direction);
+            quad(edge + progresses[direction] * 10 * unit * mark, pivot, direction);
             quad(edge + progresses[direction] * unit * mark, pivot + halfSize - 5 * unit, direction);
             quad(edge, pivot + halfSize, direction);
             quad(edge, pivot + halfSize, direction);
@@ -652,7 +652,7 @@ public class SwipePanel extends FrameLayout {
         return bitmap;
     }
 
-    private static final Object sLock = new Object();
+    private static final Object S_LOCK = new Object();
 
     private static TypedValue sTempValue;
 
@@ -663,7 +663,7 @@ public class SwipePanel extends FrameLayout {
             return context.getResources().getDrawable(id,null);
         } else {
             final int resolvedId;
-            synchronized (sLock) {
+            synchronized (S_LOCK) {
                 if (sTempValue == null) {
                     sTempValue = new TypedValue();
                 }

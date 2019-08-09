@@ -9,9 +9,9 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
 import com.jidouauto.mvvm.util.StringUtils;
-import com.jidouauto.mvvm.util.data.safe.Base64;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

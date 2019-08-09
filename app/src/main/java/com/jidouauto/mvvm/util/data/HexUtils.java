@@ -100,7 +100,8 @@ public class HexUtils {
 
         int len = data.length;
 
-        if ((len & 0x01) != 0) {
+        int num01 = 0x01;
+        if ((len & num01) != 0) {
             throw new RuntimeException("Odd number of characters.");
         }
 

@@ -70,9 +70,15 @@ public class PackageUtils {
         return packageInfo;
     }
 
-    public static int getAppVersionCode(Context context) {
+    public static long getAppVersionCode(Context context) {
         PackageInfo pi = getPackageInfo(context);
-        return pi == null ? -1 : pi.versionCode;
+        long appVersionCode = 0;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            appVersionCode = pi.getLongVersionCode();
+        } else {
+            appVersionCode = pi.versionCode;
+        }
+        return appVersionCode;
     }
 
     public static String getAppVersionName(Context context) {
@@ -145,12 +151,15 @@ public class PackageUtils {
      * @return
      */
     public static boolean isRunningForeground(Context context) {
-        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningTaskInfo> taskList = am.getRunningTasks(1);
-        if (taskList != null && !taskList.isEmpty()) {
-            ComponentName componentName = taskList.get(0).topActivity;
-            if (componentName != null && componentName.getPackageName().equals(context.getPackageName())) {
-                return true;
+        if (context != null) {
+            ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+            List<ActivityManager.RunningAppProcessInfo> processes = activityManager.getRunningAppProcesses();
+            for (ActivityManager.RunningAppProcessInfo processInfo: processes) {
+                if (processInfo.processName.equals(context.getPackageName())) {
+                    if (processInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                        return true;
+                    }
+                }
             }
         }
         return false;

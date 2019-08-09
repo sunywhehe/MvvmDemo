@@ -99,7 +99,11 @@ public class GradientProgressBar extends View {
 
     }
 
-    // 只需要画进度之外的背景即可
+    /**
+     * 只需要画进度之外的背景即可
+     *
+     * @param canvas canvas
+     */
     private void drawBg(Canvas canvas) {
         float halfSweep = sweepAngle / 2;
         for (int i = sweepAngle, st = (int) (curProgress * unitAngle); i > st; --i) {

@@ -15,4 +15,16 @@
             android:text="progressbar"
             android:layout_marginTop="40dp"
             android:onClick="progressbar"/>
+
+    <Button android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:text="litePager"
+            android:layout_marginTop="40dp"
+            android:onClick="litePager"/>
+
+    <Button android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:text="segment"
+            android:layout_marginTop="40dp"
+            android:onClick="segment"/>
 </LinearLayout>

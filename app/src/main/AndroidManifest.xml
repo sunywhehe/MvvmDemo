@@ -53,6 +53,8 @@
         </activity>
 
         <activity android:name=".ui.activity.widget.SwipePanelActivity"></activity>
+        <activity android:name=".ui.activity.widget.LitePagerActivity"></activity>
+        <activity android:name=".ui.activity.widget.SegmentActivity"></activity>
 
         <activity android:name=".ui.activity.widget.WidgetTestActivity">
             <intent-filter>

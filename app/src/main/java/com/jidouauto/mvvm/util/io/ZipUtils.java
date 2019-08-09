@@ -26,6 +26,11 @@ public class ZipUtils {
      * 压缩进度监听
      */
     public interface ZipListener {
+        /**
+         * 压缩进度回调
+         *
+         * @param zipProgress
+         */
         void zipProgress(int zipProgress);
     }
 

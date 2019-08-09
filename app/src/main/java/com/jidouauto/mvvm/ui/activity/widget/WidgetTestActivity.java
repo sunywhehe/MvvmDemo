@@ -28,4 +28,14 @@ public class WidgetTestActivity extends Activity {
         Intent intent = new Intent(this, ProgressBarActivity.class);
         startActivity(intent);
     }
+
+    public void litePager(View view) {
+        Intent intent = new Intent(this, LitePagerActivity.class);
+        startActivity(intent);
+    }
+
+    public void segment(View view) {
+        Intent intent = new Intent(this, SegmentActivity.class);
+        startActivity(intent);
+    }
 }

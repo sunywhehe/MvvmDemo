@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <com.jidouauto.mvvm.ui.widget.LitePager
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <View
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:background="#F00" />
+
+        <View
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:background="#0F0"/>
+
+        <View
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:background="#00F"/>
+    </com.jidouauto.mvvm.ui.widget.LitePager>
+</LinearLayout>

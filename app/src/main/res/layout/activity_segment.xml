@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:gravity="center"
+              android:layout_height="match_parent">
+
+    <com.jidouauto.mvvm.ui.widget.SegmentControl
+            android:id="@+id/segment_control"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            app:selectedColor="#0099CC"
+            app:normalColor="#FFFFFF"
+            app:cornerRadius="5dip"
+            android:orientation="horizontal"
+            app:horizonGap="8dip"
+            app:texts="啊啊|啦啦啦|哈哈哈|顶顶顶顶"
+            app:verticalGap="8dip"/>
+
+</LinearLayout>
