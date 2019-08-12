@@ -77,5 +77,23 @@
         <attr name="horizonGap" format="dimension|reference"/>
         <attr name="verticalGap" format="dimension|reference"/>
     </declare-styleable>
-
+    <declare-styleable name="GradientButton">
+        <attr name="gbOrientation" format="enum">
+            <enum name="top_bottom" value="0" />
+            <enum name="tr_bl" value="1" />
+            <enum name="right_left" value="2" />
+            <enum name="br_tl" value="3" />
+            <enum name="bottom_top" value="4" />
+            <enum name="bl_tr" value="5" />
+            <enum name="left_right" value="6" />
+            <enum name="tl_br" value="7" />
+        </attr>
+        <attr name="gradient" format="reference" />
+        <attr name="startColor" format="color" />
+        <attr name="endColor" format="color" />
+        <attr name="stroke" format="dimension" />
+        <attr name="circular" format="boolean" />
+        <attr name="filled" format="boolean" />
+        <attr name="fillColor" format="color" />
+    </declare-styleable>
 </resources>
